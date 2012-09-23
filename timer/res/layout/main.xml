@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#5f0101"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Timer Counter"
+        android:textColor="#00FFFF"
+        android:textStyle="bold"
+            android:textSize="30dp"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          android:layout_marginTop="10dp"
+          android:background="#464444" >
+         
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="bottom"
+              android:layout_marginLeft="5dp"
+              android:text="Time Left "
+              android:textColor="#FFFF00"
+              android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/countDownTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="1.30"
+                android:textColor="#00FF00"
+                android:textSize="30dp" />
+
+            <Button
+                android:id="@+id/countDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Count Down Timer" />
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          android:layout_marginTop="20dp"
+          android:background="#464444"
+          android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="00"
+                android:textColor="#FFFFFF"
+                android:textSize="70dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal" >
+
+                  <Button
+                      android:id="@+id/btnTimer"
+                      android:layout_width="100dp"
+                      android:layout_height="100dp"
+                      android:text="Timer Start" />
+
+                  <Button
+                      android:id="@+id/btnTimerStop"
+                      android:layout_width="100dp"
+                      android:layout_height="100dp"
+                      android:text="Timer Stop" />
+
+            </LinearLayout>
+
+      </LinearLayout>
+
+</LinearLayout>
