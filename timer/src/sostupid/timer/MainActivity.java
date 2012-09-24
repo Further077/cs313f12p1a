@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
         Thread logoTimer = new Thread(){
         	public void run(){
         		try{
-        			sleep(10);
+        			sleep(1000);
         			Intent menuIntent = new Intent("sostupid.timer.MENU");
         			startActivity(menuIntent);
         			

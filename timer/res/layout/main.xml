@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#5f0101"
+    android:background="#B5D5FC"
     android:orientation="vertical" >
 
     <TextView
@@ -11,45 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Timer Counter"
-        android:textColor="#00FFFF"
+        android:textColor="#000000"
         android:textStyle="bold"
             android:textSize="30dp"/>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="5dp"
-          android:layout_marginRight="5dp"
-          android:layout_marginTop="10dp"
-          android:background="#464444" >
-         
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="bottom"
-              android:layout_marginLeft="5dp"
-              android:text="Time Left "
-              android:textColor="#FFFF00"
-              android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/countDownTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:text="1.30"
-                android:textColor="#00FF00"
-                android:textSize="30dp" />
-
-            <Button
-                android:id="@+id/countDown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="Count Down Timer" />
-
-      </LinearLayout>
 
       <LinearLayout
           android:layout_width="match_parent"
@@ -66,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
+                android:scrollHorizontally="false"
                 android:text="00"
                 android:textColor="#FFFFFF"
                 android:textSize="70dp" />
@@ -80,15 +45,10 @@
 
                   <Button
                       android:id="@+id/btnTimer"
-                      android:layout_width="100dp"
+                      android:layout_width="182dp"
                       android:layout_height="100dp"
-                      android:text="Timer Start" />
-
-                  <Button
-                      android:id="@+id/btnTimerStop"
-                      android:layout_width="100dp"
-                      android:layout_height="100dp"
-                      android:text="Timer Stop" />
+                      android:text="Button"
+                      android:textSize="@dimen/text_size" />
 
             </LinearLayout>
 
