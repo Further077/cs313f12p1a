@@ -27,24 +27,28 @@ import android.view.View.OnClickListener;
 public class menu extends Activity{
 	
 	
-		 private static final int NOTIFICATION_ID =1;
+		 private  static int NOTIFICATION_ID =1;
 
 		private Timer timer = new Timer();
 
 		 private int  maxTime =5,remainTime=5,counter=0,firstClick=0;
 		 private Handler mHandler = new Handler();
 	     private TextView timerLabel,buttonLabel;
+	     private TimerTask beepTask;
+
 	     
 	     
 		private void initNotification(){
 	    	 String ns = Context.NOTIFICATION_SERVICE;
 	    	 NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 	    	 int icon = R.drawable.ic_launcher;
-	    	 CharSequence tickerText = "Time it up!";
+	    	 CharSequence tickerText = "3 Seconds elapse";
 	    	 long when = System.currentTimeMillis();
 	    	 Notification notification = new Notification(icon, tickerText, when);
 	    	 notification.defaults |= Notification.DEFAULT_SOUND;
-
+	    	 notification.defaults |= Notification.DEFAULT_VIBRATE;
+	    	 
+	    	 
 	    	 notification.flags=Notification.FLAG_INSISTENT;
 	    	 Context context = getApplicationContext();
 	    	 CharSequence contentTitle = "My notification";
@@ -63,7 +67,6 @@ public class menu extends Activity{
 	     
 	     
 	     public void onCreate(Bundle savedInstanceState) {
-	    	 initNotification();
 //	    	 public int onStartCommand(Intent intent, int flags, int startID);
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.main);
@@ -71,22 +74,28 @@ public class menu extends Activity{
 	        buttonLabel = (TextView) findViewById(R.id.countDown);
 	        timerLabel = (TextView) findViewById(R.id.textTimer);
 	        Button timerStartButton = (Button) findViewById(R.id.btnTimer); 
+	        
+	       
 	       
 	        timerStartButton.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View view){
 	                 
-//	                  if(remainTime ==5){
-//	                  startTime = SystemClock.uptimeMillis();
-	                  
-	                  if(firstClick==0&&counter==0 ){
-	                	  mHandler.postDelayed(mUpdateTimeTask,10);
-	                	  firstClick=1;
+
+	                  if(counter==0 ||remainTime==-1){
+
+	  				
+
+	                	  remainTime=maxTime;
+	                	  counter=0;
+	                	  mHandler.removeCallbacks(mUpdateTimeTask);
+
+	                	  mHandler.postDelayed(mUpdateTimeTask,00);
 	                	  
 	                  }
 	                  
 	                  else if(remainTime>0){
-	                	  counter=0;
 
+	                	  counter=0;
 	                	  timerLabel.setText(String.format("%02d", counter));
 	                	  mHandler.removeCallbacks(mUpdateTimeTask);
 	                	  remainTime=-1;
@@ -94,16 +103,7 @@ public class menu extends Activity{
 	                  }
 	                  
 	                  
-	                  else if(remainTime==-1){
-	                	  remainTime=maxTime;
-	                	  firstClick=0;
-	                	  counter=0;
-	                	  mHandler.removeCallbacks(mUpdateTimeTask);
-	                	  mHandler.postDelayed(mUpdateTimeTask, 0);
-	                	  
-
-	                	  
-	                  }
+	             
 
 	                	  
 //	                  else if (remainTime>0)
@@ -126,20 +126,37 @@ public class menu extends Activity{
 	                	  
 	            }
 	        });
-	        cancelNotification();
 	    }
 	    
 	    private final Runnable mUpdateTimeTask = new Runnable(){
 
             public void run() {
+            	
             	if(remainTime>=0){
-	    	
+            		
+            		if(counter==3){
+            			
+            			  timer.schedule(new TimerTask() {
+ 	  				    	 @Override
+ 	  				    	 public void run() {
+ 	  				                mHandler.post(new Runnable() {
+ 	  				                        public void run() {
+ 	  				                        	initNotification();
+
+ 	  				                        	cancelNotification();
+ 	  				                        	
+ 	  				                        }
+ 	  				               });
+ 	  				        }}, 0);	
+            		if(remainTime==0){
+            			
+            		}
+            			  
+    	    		}
             	timerLabel.setText(String.format("%02d", remainTime));
 	    		remainTime=maxTime-counter-1;
 	    		counter++;
-	    		if(counter==3){
-	    			
-	    		}
+	    		
                 mHandler.postDelayed(this, 1000);
             	}
 
@@ -150,11 +167,16 @@ public class menu extends Activity{
             }    
     };
     
+    
+    
+    
+   
 
+
+ }
 	    
 	    
-	    
-}
+
 //	       
 //	        Button timerStopButton = (Button) findViewById(R.id.btnTimerStop);      
 //	        timerStopButton.setOnClickListener(new View.OnClickListener() {
