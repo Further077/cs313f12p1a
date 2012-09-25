@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">newtimer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Main</string>
+    <string name="model_class">hola.newtimer.model.DefaultCounter</string>
+    
+
+</resources>
