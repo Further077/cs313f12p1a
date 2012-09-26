@@ -1,5 +1,8 @@
 package hola.newtimer;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import hola.newtimer.model.DefaultCounter;
 import hola.newtimer.model.Counter;
 import android.os.Bundle;
@@ -22,7 +25,7 @@ import android.widget.TextView;
 public class Main extends Activity {
 	int min =0, max=5,counter=0,allowCountDown=0,beep=0,count=0,startAdding=0;
     private Handler handler = new Handler();
-
+    private Timer timer = new Timer();
 	private Counter model= new DefaultCounter(min, max);
     private static int NOTIFICATION_ID = 1;
 
@@ -60,40 +63,34 @@ public class Main extends Activity {
 
 		@Override
 		public void run() {
-			if(model.getValue()>0){
+			if(model.getValue()>0&&counter==0){
 				handler.postDelayed(this, 1000);
 				updateView();
 				model.decrement(1);
 				updateView();
 			}
-			else{
+			else if(model.getValue()==0&&counter==0){
 				initNotification("time is up!",0);
 				beep=2;
 			}
-		}};
 
+		}};
+			
 	private CountDownTimer threeSeconds = new CountDownTimer(3000, 1000){
     	
 	    @Override     
 	    public void onFinish() {  
 	    	initNotification("done",1);
 	    	beep=1;
+	    	handler.postDelayed(countDownTask, 1000);
 	    	allowCountDown=1;
+
+
 	    }     
 	    @Override     
 	    public void onTick(long millisUntilFinished) {  
 	    	
 	    	}};
-    
-	    	
-//	     public void countButton(final View v){
-//	        	
-//	        	if(model.getValue()>=0&&allowCountDown==0&beep==0){ 
-//	        		counter++;
-//	        		model.increment(1);
-//	        		updateView();
-//	        	}
-//	        }   	
 	protected void configureApp() {
 		setContentView(R.layout.activity_main);
 
@@ -117,10 +114,7 @@ public class Main extends Activity {
 		theOnlyButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(final View v) {
-				// TODO Auto-generated method stub
-	
-
+			public void onClick(final View v) {	
 				//init button
 		    	if(model.getValue()==0&&allowCountDown==0&&beep==0&&startAdding==0){ 
 		    		threeSeconds.start();
@@ -129,48 +123,23 @@ public class Main extends Activity {
 		    		updateView();
 		    		counter=0;
 		    	}
-		    	
 		    	//add button
 		    	else if(model.getValue()>0&&allowCountDown==0&&beep==0&&startAdding==1){ 
 		   	    	model.increment(1);
 		    		updateView();
 		    	}
-		    	
-		    	
-		    	
-		    	// countdown button
-		    	if(model.getValue()>0&&allowCountDown==1&&beep==1&&startAdding==1&&counter==0){
 		    		
-		    		 CountDownTimer countDown = new CountDownTimer(model.getValue()*1000,1000){
-
-		    			@Override
-		    			public void onFinish() {
-		    				model.setValue(0);
-		    				updateView();
-		    				initNotification("End!!!!",0);
-		    				beep=2;
-		    			}
-
-		    			@Override
-		    			public void onTick(long millisUntilFinished) {
-		    				counter=1;
-		    				updateView(String.valueOf((int)Math.floor((millisUntilFinished+.3)/1000)));
-//		    				updateView(String.valueOf(millisUntilFinished));
-		    			}};
-		    			countDown.start();
-		    		
-//		    		cancle button
-		    		if(counter==1){
-		    			countDown.cancel();
+		    	//cancle button
+		    	if(model.getValue()>0&&allowCountDown==1&&beep==1&&startAdding==1){
+		    		counter=1;
+		    		handler.removeCallbacksAndMessages(countDownTask);
 		    		model.setValue(0);
 		    		updateView();
 		    		allowCountDown=0;
 		    		beep=0;
 		    		startAdding=0;
 		    		}
-		    		}
-	
-		    	//   stop button
+		    	//stop button
 		    	if(model.getValue()>=0&&allowCountDown<=1&&beep>=1){
 		    		cancelNotification();
 		    		allowCountDown=0;
@@ -178,50 +147,16 @@ public class Main extends Activity {
 		    		startAdding=0;
 		    		counter=0;
 		    		model.setValue(0);
-		    	}
-		    	
-
-		    	
-		    	    
-		 
-				
-			}});
-		
-
-
-	
-	}
-
-//		final OnClickListener buttontListener = new OnClickListener() {
-//			
-//			
-//			public void onClick( View v) {
-//				
-//				/**
-//				 * Count Down Method.
-//				 */
-				        
-
-//				/**
-//				 * click buttons
-//				 */
-//				counter=model.getValue();
-//				
-//			
-//
-//			}
-//		};
-//		findViewById(R.id.theOnlyButton).setOnClickListener(
-//				buttontListener);
-		
-		
-	
+		    	}	
+			}
+		});
+		}
 
 	/**
 	 * Updates the view from the model.
 	 */
-	protected void updateView() {
-		final TextView valueView = (TextView) findViewById(R.id.textTimer);
+	private void updateView() {
+		 TextView valueView = (TextView) findViewById(R.id.textTimer);
 		valueView.setText(Integer.toString(model.getValue()));
 		// afford controls according to model state
 		((Button) findViewById(R.id.theOnlyButton)).setEnabled(!model
@@ -230,8 +165,8 @@ public class Main extends Activity {
 //				.isEmpty());
 	}
 	
-	protected void updateView(String string) {
-		final TextView valueView = (TextView) findViewById(R.id.textTimer);
+	private void updateView(String string) {
+		 TextView valueView = (TextView) findViewById(R.id.textTimer);
 		valueView.setText(string);
 		// afford controls according to model state
 		((Button) findViewById(R.id.theOnlyButton)).setEnabled(!model
@@ -265,6 +200,5 @@ public class Main extends Activity {
     }
 	 
 }
-
 
 
