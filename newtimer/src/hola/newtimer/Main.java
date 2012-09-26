@@ -69,7 +69,7 @@ public class Main extends Activity {
 				model.decrement(1);
 				updateView();
 			}
-			else if(model.getValue()==0&&counter==0){
+			else if(model.getValue()==0&&counter==0&&beep==1){
 				initNotification("time is up!",0);
 				beep=2;
 			}
@@ -84,7 +84,7 @@ public class Main extends Activity {
 	    	beep=1;
 	    	handler.postDelayed(countDownTask, 1000);
 	    	allowCountDown=1;
-
+	    	startAdding=0;
 
 	    }     
 	    @Override     
@@ -127,6 +127,7 @@ public class Main extends Activity {
 		    	else if(model.getValue()>0&&allowCountDown==0&&beep==0&&startAdding==1){ 
 		   	    	model.increment(1);
 		    		updateView();
+		    		
 		    	}
 		    		
 		    	//cancle button
@@ -147,6 +148,8 @@ public class Main extends Activity {
 		    		startAdding=0;
 		    		counter=0;
 		    		model.setValue(0);
+		    		updateView();
+
 		    	}	
 			}
 		});
