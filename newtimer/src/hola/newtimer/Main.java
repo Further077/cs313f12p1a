@@ -1,8 +1,5 @@
 package hola.newtimer;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import hola.newtimer.model.DefaultCounter;
 import hola.newtimer.model.Counter;
 import android.os.Bundle;
@@ -17,15 +14,13 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
 
 public class Main extends Activity {
-	int min =0, max=5,counter=0,allowCountDown=0,beep=0,count=0,startAdding=0;
+	int min =0, max=99,counter=0,allowCountDown=0,beep=0,count=0,startAdding=0;
     private Handler handler = new Handler();
-    private Timer timer = new Timer();
 	private Counter model= new DefaultCounter(min, max);
     private static int NOTIFICATION_ID = 1;
 
@@ -54,13 +49,9 @@ public class Main extends Activity {
 		updateView();
 	}
 
-	/**
-	 * Instantiates model and connects listeners to views.
-	 */
 
-    
+    //Instance a runnable to  run every one second passed through handler.
     private final Runnable countDownTask = new Runnable() {
-
 		@Override
 		public void run() {
 			if(model.getValue()>0&&counter==0){
@@ -75,7 +66,9 @@ public class Main extends Activity {
 			}
 
 		}};
-			
+	
+		
+	//Instance a CountDownTimer used when the timer first ever starts.
 	private CountDownTimer threeSeconds = new CountDownTimer(3000, 1000){
     	
 	    @Override     
@@ -90,7 +83,12 @@ public class Main extends Activity {
 	    @Override     
 	    public void onTick(long millisUntilFinished) {  
 	    	
-	    	}};
+	    	}};	
+	    	
+	    	
+	/**
+	* Instantiates model and connects listeners to views.
+	*/
 	protected void configureApp() {
 		setContentView(R.layout.activity_main);
 
@@ -108,13 +106,15 @@ public class Main extends Activity {
 		}
 
 		
-		
+		//Instance theOnlyButton
 		final Button theOnlyButton = (Button)findViewById(R.id.theOnlyButton);
 		
+		//Set up works after clicking theOnlyButton.
 		theOnlyButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(final View v) {	
+				
 				//init button
 		    	if(model.getValue()==0&&allowCountDown==0&&beep==0&&startAdding==0){ 
 		    		threeSeconds.start();
@@ -130,7 +130,7 @@ public class Main extends Activity {
 		    		
 		    	}
 		    		
-		    	//cancle button
+		    	//cancel button
 		    	if(model.getValue()>0&&allowCountDown==1&&beep==1&&startAdding==1){
 		    		counter=1;
 		    		handler.removeCallbacksAndMessages(countDownTask);
@@ -140,6 +140,8 @@ public class Main extends Activity {
 		    		beep=0;
 		    		startAdding=0;
 		    		}
+		    	
+		    	
 		    	//stop button
 		    	if(model.getValue()>=0&&allowCountDown<=1&&beep>=1){
 		    		cancelNotification();
@@ -167,17 +169,12 @@ public class Main extends Activity {
 //		((Button) findViewById(R.id.button_decrement)).setEnabled(!model
 //				.isEmpty());
 	}
-	
-	private void updateView(String string) {
-		 TextView valueView = (TextView) findViewById(R.id.textTimer);
-		valueView.setText(string);
-		// afford controls according to model state
-		((Button) findViewById(R.id.theOnlyButton)).setEnabled(!model
-				.isFull());
-	}
 
 	
-    private void initNotification(CharSequence tickerText, int beepTime) {
+	//initialize a notification with (text showed up, beep options) 
+	
+    @SuppressWarnings("deprecation")
+	private void initNotification(CharSequence tickerText, int beepTime) {
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
         int icon = R.drawable.ic_launcher;
@@ -196,6 +193,8 @@ public class Main extends Activity {
         notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, notification);
     }
+    
+    //cancel current notification
     private void cancelNotification() {
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
