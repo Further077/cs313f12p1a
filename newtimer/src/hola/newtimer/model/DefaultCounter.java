@@ -50,15 +50,15 @@ public class DefaultCounter implements Counter{
     return min <= value && value <= max;
   }
 
-  public void increment(int number) {
+  public void increment() {
     assert dataInvariant() && ! isFull();
-    this.value =value+number;
+    this.value ++;
     assert dataInvariant();
   }
 
-  public void decrement(int number) {
+  public void decrement() {
     assert dataInvariant() && ! isEmpty();
-    this.value =value-number;
+    this.value --;
     assert dataInvariant();
   }
 

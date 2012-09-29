@@ -6,13 +6,13 @@ public interface Counter {
 	   * Increments the counter value.
 	   * Precondition: counter is not full.
 	   */
-	  void increment(int value);
+	  void increment();
 
 	  /**
 	   * Decrements the counter value.
 	   * Precondition: counter is not empty.
 	   */
-	  void decrement(int value);
+	  void decrement();
 
 	  /**
 	   * Resets the counter value.

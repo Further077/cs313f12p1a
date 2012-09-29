@@ -57,7 +57,7 @@ public class Main extends Activity {
 			if(model.getValue()>0&&counter==0){
 				handler.postDelayed(this, 1000);
 				updateView();
-				model.decrement(1);
+				model.decrement();
 				updateView();
 			}
 			else if(model.getValue()==0&&counter==0&&beep==1){
@@ -119,13 +119,13 @@ public class Main extends Activity {
 		    	if(model.getValue()==0&&allowCountDown==0&&beep==0&&startAdding==0){ 
 		    		threeSeconds.start();
 		    		startAdding=1;
-		   	    	model.increment(1);
+		   	    	model.increment();
 		    		updateView();
 		    		counter=0;
 		    	}
 		    	//add button
 		    	else if(model.getValue()>0&&allowCountDown==0&&beep==0&&startAdding==1){ 
-		   	    	model.increment(1);
+		   	    	model.increment();
 		    		updateView();
 		    		
 		    	}
@@ -162,7 +162,7 @@ public class Main extends Activity {
 	 */
 	private void updateView() {
 		 TextView valueView = (TextView) findViewById(R.id.textTimer);
-		valueView.setText(Integer.toString(model.getValue()));
+		valueView.setText(String.format("%02d", (model.getValue())));
 		// afford controls according to model state
 		((Button) findViewById(R.id.theOnlyButton)).setEnabled(!model
 				.isFull());
