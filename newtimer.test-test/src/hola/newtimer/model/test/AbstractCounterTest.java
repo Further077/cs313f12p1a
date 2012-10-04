@@ -77,7 +77,32 @@ public abstract class AbstractCounterTest {
 		incrementIfEmpty();
 		assertFalse(counter.isEmpty());
 	}
-
+	
+	////new
+	@Test
+	public void testgetValue() {
+		final int v = counter.getValue();
+		assertEquals(v, counter.getValue());
+	}
+	
+	////new
+	@Test
+	public void testgetStatus() {
+		final int v = counter.getStatus();
+		assertEquals(v, counter.getStatus());
+	}
+	
+	
+	////new
+	@Test
+	public void testSetStatus() {
+		incrementIfEmpty();
+		assertFalse(counter.isEmpty());
+		final int v = counter.getStatus();
+		counter.setStatus(v);
+		assertEquals(counter.getStatus(),v);
+	}
+ 
 	protected void decrementIfFull() {
 		if (counter.isFull()){ counter.decrement(); }
 	}

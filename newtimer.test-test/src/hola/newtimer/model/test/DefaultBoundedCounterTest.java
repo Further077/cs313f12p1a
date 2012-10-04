@@ -17,7 +17,7 @@ public class DefaultBoundedCounterTest extends AbstractCounterTest {
 
 	private final static int MIN = 0;
 
-	private final static int MAX = 5;
+	private final static int MAX = 99;
 
 	@Before
 	public void setUp() throws Exception {
