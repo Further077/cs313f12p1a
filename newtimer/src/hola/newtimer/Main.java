@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-
+//hola
 public class Main extends Activity {
 	int min =0, max=99,counter=0,allowCountDown=0,beep=0,count=0,startAdding=0; double endTime=0,startTime=0;
     private Handler handler = new Handler();
