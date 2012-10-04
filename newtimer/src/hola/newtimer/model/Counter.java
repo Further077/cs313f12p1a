@@ -26,8 +26,8 @@ public interface Counter {
 	   * @return the current counter value
 	   */
 	  int getValue();
-	  
-
+	  int setStatus(int number);
+	  int getStatus();
 	  /**
 	   * Indicates whether the counter is full (at its maximum).
 	   * @return whether the counter is full

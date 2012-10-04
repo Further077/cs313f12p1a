@@ -2,8 +2,7 @@ package hola.newtimer.model;
 
 
 public class DefaultCounter implements Counter{
-
-
+  private  int status = 0;
   /**
    * The lower bound of the counter.
    */
@@ -23,7 +22,7 @@ public class DefaultCounter implements Counter{
    * Constructs a bounded counter with the default bounds.
    */
   public DefaultCounter() {
-    this(0, 30);
+    this(0, 99);
   }
 
   /**
@@ -83,7 +82,16 @@ public class DefaultCounter implements Counter{
 	  
   }
   
-
+  public int getStatus(){
+	  
+	return status;
+  }
+  
+  public int setStatus(int number){
+	  return this.status = number;
+	
+	  
+  }
 }
 
 
