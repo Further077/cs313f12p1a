@@ -32,26 +32,55 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
 //
     
     
+    
+    
+    
+    
+//    private Thread thread;
+//    Runnable runnable = new Runnable() {
+//        @UiThreadTest
+//		@Override
+//		public void run() {
+//        	afterSeconds(3000,1);
+//		}
+//	};
+//	
+//	
+//    public MainTest(final Runnable runnable){
+//    	
+//		super(Main.class);
+//
+//        thread = new Thread(new Runnable(){
+//        	
+//            public void run(){
+////                try{            
+//                    runnable.run();
+////                }catch(AssertionError e){
+////                    exc = e;
+////                }
+//            }
+//        });
+//    }
+
+
+//    test should not assume anything about the implementation; It should only test functionality,
     ///press---3.5sec---press
     @UiThreadTest
-    public void test1() {
+    public  void test1() throws InterruptedException {
+    	
+    
+      
+    
+    
+    	
     	assertEquals(0, getDisplayedValue());
     	assertTrue(pressTheOnlyButton().isEnabled());
-    	
-    	
-
     	assertTrue(pressTheOnlyButton().performClick());
-    	
     	assertEquals(1, getDisplayedValue());
     	assertTrue(pressTheOnlyButton().isEnabled());
-    	
-    	afterSecondsToClick(3500).start();
-    	////////////////////////////should be 0/////////////////
-    	assertEquals(1, getDisplayedValue());
-    	assertTrue(pressTheOnlyButton().isEnabled());
-    }
-
     
+    	}
+    	
 
     @UiThreadTest
     public void test2() {
@@ -59,45 +88,27 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     	assertEquals(0, getDisplayedValue());
     	assertTrue(pressTheOnlyButton().isEnabled());
     	
+    	
+    	
+		
     	while(counter<=99){    	
     		assertTrue(pressTheOnlyButton().performClick());
-        	assertEquals(counter, getDisplayedValue());
     		counter++;
-    		
-}
-    	
-    	assertFalse(pressTheOnlyButton().isEnabled());
 
-    	afterSecondsToClick(1000000).start();
-    	////////////////////////////should be 0/////////////////
-    	assertEquals(99, getDisplayedValue());
-//    	assertTrue(pressTheOnlyButton().isEnabled());
-    	
+    	}
+    	assertFalse(pressTheOnlyButton().isEnabled());
+    	assertEquals(99, getDisplayedValue());//99 max
     }
     
-//    The @UiThreadTest annotation tells Android to build this method so that it runs on the UI thread. This allows the method to change the state of the spinner widget in the application under test. This use of @UiThreadTest shows that, if necessary, you can run an entire method on the UI thread.
+    
+//    The @UiThreadTest annotation tells Android to build this method so that
+//    it runs on the UI thread. This allows the method to change the state of the 
+//    spinner widget in the application under test. 
+//    This use of @UiThreadTest shows that, if necessary, you can run an entire
+//    method on the UI thread.
 
 
-    @UiThreadTest
-    public void test3() {
-    	int counter=1;
-    	assertEquals(0, getDisplayedValue());
-    	assertTrue(pressTheOnlyButton().isEnabled());
-    	
-    	while(counter<=13){    	
-    		assertTrue(pressTheOnlyButton().performClick());
-        	assertEquals(counter, getDisplayedValue());
-    		counter++;
-    		
-}
-    	
-    	assertTrue(pressTheOnlyButton().isEnabled());
 
-    	afterSecondsToClick(13500).start();
-    	////////////////////////////should be 0/////////////////
-    	assertEquals(13, getDisplayedValue());
-    	assertTrue(pressTheOnlyButton().isEnabled());
-    }
 
     // auxiliary methods for easy access to UI widgets
 
@@ -106,29 +117,37 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     	return Integer.parseInt(t.getText().toString().trim());
     }
 
-    protected Button pressTheOnlyButton() {
+    protected  Button pressTheOnlyButton() {
+    	
     	return (Button) getActivity().findViewById(R.id.theOnlyButton);
     }
-    
-    protected CountDownTimer afterSecondsToClick(final long seconds){
-        CountDownTimer counDownTimer = new CountDownTimer(seconds, 1000){
 
-    		@Override
-    		public void onFinish() {
-    	    	assertTrue(pressTheOnlyButton().performClick());
-    	    	    assertEquals(seconds, getDisplayedValue());
-
-
-    			// TODO Auto-generated method stub
-    			
-    		}
-
-    		@Override
-    		public void onTick(long millisUntilFinished) {
-    			// TODO Auto-generated method stub
-    			
-    		}};
-		return counDownTimer;};
-
+//    Dont delete	
+//    protected CountDownTimer afterSeconds( long seconds, final int doClick){
+//        CountDownTimer counDownTimer = new CountDownTimer(seconds, 1000){
+//
+//            @UiThreadTest
+//            @Override
+//    		public void onFinish() {
+//    			if(doClick!=0)
+//    	    	assertTrue(pressTheOnlyButton().performClick());
+//
+//
+//    			// TODO Auto-generated method stub
+//    			
+//    		}
+//
+//    		@Override
+//    		public void onTick(long millisUntilFinished) {
+////		    	assertEquals((int)millisUntilFinished/1000, getDisplayedValue());
+//
+//    			// TODO Auto-generated method stub
+//    			
+//    		}};
+//		return counDownTimer;
+//		
+//    };
+		
+	
    
 }
