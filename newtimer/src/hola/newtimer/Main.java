@@ -19,21 +19,18 @@ import android.widget.TextView;
 
 
 public class Main extends Activity {
-	int min =0, max=99,counter=0,allowCountDown=0,beep=0,count=0,startAdding=0; double endTime=0,startTime=0;
+	private int min =0, max=99,beep=0;
     private Handler handler = new Handler();
 	private Counter model= new DefaultCounter(min, max);
     private static int NOTIFICATION_ID = 1;
-
 	private static String TAG = "project1a-clickcounter-android";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
-
 		configureApp();
 	}
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,42 +42,44 @@ public class Main extends Activity {
 	protected void onStart() {
 		super.onStart();
 		Log.i(TAG, "onstartAdding");
-
 		updateView();
 	}
-
-
-    //Instance a runnable to  run every one second passed through handler.
+/**
+ * The model's state is represented by one of the following integer values:
+ * 0: represents the initial state of the Counter where value = 0 
+ * 1: represents the state of the model while incrementing
+ * -1: represents the state of the model while decrementing
+ * 
+ */
+    
+    
+    //Instance of a runnable object to pass methods to handler
     private final Runnable countDownTask = new Runnable() {
 		@Override
 		public void run() {
-			if(model.getValue()>=0&&model.getStatus()==2){
+			if(model.getValue()>=0&&model.getStatus()==-1){
 				updateView();
 				handler.postDelayed(this, 1000);
 				model.decrement();
-//				 TextView valueView = (TextView) findViewById(R.id.textTimer);
-//					valueView.setText(("hello"+(int)model.getValue()));
 			}
-			else if(model.getValue()==-1&&model.getStatus()==2){
+			else if(model.getValue()==-1&&model.getStatus()==-1){
 				model.reset();
 				updateView();
-				initNotification("time is up!",0);
+				initNotification("Time's Up!",0);
 				beep=1;
 			}
 
 		}};
 	
 		
-	//Instance a CountDownTimer used when the timer first ever starts.
-	private CountDownTimer threeSeconds = new CountDownTimer(3000, 1000){
+	//Instance of a CountDownTimer object used when timer initially starts
+	private CountDownTimer threeSecondCountdown = new CountDownTimer(3000, 1000){
     	
 	    @Override     
 	    public void onFinish() {  
-	    	initNotification("falling down",1);
+	    	initNotification("Counting Down",1);
 	    	handler.postDelayed(countDownTask, 0);
-	    	model.setStatus(2);
-
-	    	
+	    	model.setStatus(-1);
 	    }     
 	    @Override     
 	    public void onTick(long millisUntilFinished) {  
@@ -89,7 +88,7 @@ public class Main extends Activity {
 	    	
 	    	
 	/**
-	* Instantiates model and connects listeners to views.
+	* Instantiates model and connects listeners to views
 	*/
 	protected void configureApp() {
 		setContentView(R.layout.activity_main);
@@ -109,50 +108,39 @@ public class Main extends Activity {
 
 		
 		//Instance theOnlyButton
-		final Button theOnlyButton = (Button)findViewById(R.id.theOnlyButton);
+		final Button theSingleButton = (Button)findViewById(R.id.theOnlyButton);
 		
 		//Set up works after clicking theOnlyButton.
-		theOnlyButton.setOnClickListener(new View.OnClickListener() {
+		theSingleButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(final View v) {	
-				threeSeconds.cancel();
+				threeSecondCountdown.cancel();
 				if(model.getStatus()==0||model.getStatus()==1)
-				threeSeconds.start();
+				threeSecondCountdown.start();
 				//initiate state
 				if(model.getStatus()==0){model.increment();updateView();model.setStatus(1);}
 				//incrementing
 				else if(model.getStatus()==1){model.increment();updateView();}
-				else if(model.getStatus()==2){
-					//cancle
+				else if(model.getStatus()==-1){
+					//cancel
 					if(beep==0){model.setStatus(0);model.reset();updateView();}
 					//stop
 					else {cancelNotification();model.reset();updateView();model.setStatus(0);}
 				}
-
-				
-				
-				
-				
-				
-				
-				
 		    		}
 		    
 		});
 		}
 
 	/**
-	 * Updates the view from the model.
+	 * Updates the view based on state of model
 	 */
 	private void updateView() {
-		 TextView valueView = (TextView) findViewById(R.id.textTimer);
+		TextView valueView = (TextView) findViewById(R.id.textTimer);
 		valueView.setText(String.format("%02d", (model.getValue())));
-		// afford controls according to model state
 		((Button) findViewById(R.id.theOnlyButton)).setEnabled(!model
 				.isFull());
-//		((Button) findViewById(R.id.button_decrement)).setEnabled(!model
-//				.isEmpty());
 	}
 
 	
@@ -170,8 +158,8 @@ public class Main extends Activity {
         if (beepTime == 1) notification.flags = Notification.FLAG_ONLY_ALERT_ONCE;
         else notification.flags = Notification.FLAG_INSISTENT;
         Context context = getApplicationContext();
-        CharSequence contentTitle = "My notification";
-        CharSequence contentText = "Hello World!";
+        CharSequence contentTitle = "Timer";
+        CharSequence contentText = "Alert";
         Intent notificationIntent = new Intent(this, Main.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 

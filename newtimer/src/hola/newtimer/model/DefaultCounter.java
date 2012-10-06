@@ -1,6 +1,5 @@
 package hola.newtimer.model;
 
-
 public class DefaultCounter implements Counter{
   private  int status = 0;
   /**
@@ -77,21 +76,21 @@ public class DefaultCounter implements Counter{
   public boolean isEmpty() {
     return value <= min;
   }
+  
   public int setValue(int number) {
 	  return this.value=number;
-	  
   }
   
+  // getStatus method returns the current state of the model
   public int getStatus(){
-	  
 	return status;
   }
   
+  // setStatus method used to change the state of the model
   public int setStatus(int number){
 	  return this.status = number;
-	
-	  
   }
+
 }
 
 
