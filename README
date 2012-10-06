@@ -2,8 +2,7 @@ Project Name: Timer
 
 Authors: Xiao (Shell) Yan & Ron Giambalvo 
 
-Description: This application runs on an Android-compatible mobile device.
-The Timer application behaves as follows:
+Description: This application runs on an Android-compatible mobile device. The Timer application behaves as follows:
 
 *The timer always displays the remaining time.
 *Initially, the timer is stopped and the (remaining) time is zero.
