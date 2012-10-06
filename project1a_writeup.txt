@@ -1,0 +1,17 @@
+
+Shell and I sat down to draw up a M-V-A model of the application. We did this both on whiteboard (see included image file)
+and verbally, establishing what methods (behaviors) and objects we would implement.
+After several drafts, we finally agreed upon a de-coupled model where the model and view 
+did not communicate with one another. We needed a way for the Counter object to "tell" 
+the adapter what state it was in, either at rest, incrementing or decrementing. Then based on that state,
+we could determine what methods the Activity was going to send out to View, and call. 
+
+We regrettably did write the units tests before starting programming the application, and
+had difficulty writing the tests after the fact. That is the one thing we would do differently in
+future projects. 
+
+While GitHub and version control in general is now the norm, Ron found it easier to sit with Shell
+and program side by side adhering to the XP practice of pair programming, and taking turns at the computer while
+the other tested the app on their mobile device, added to the whiteboard, or performed code review to catch errors. 
+Because we scrapped our entire project code very late in the development cycle, we found it easier
+to code this way instead of working remotely using version control.
