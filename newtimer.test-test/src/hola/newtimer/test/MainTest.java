@@ -29,68 +29,23 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     public void testActivityTestCaseSetUpProperly() {
         assertNotNull("activity should be launched successfully", getActivity());
     }
-//
-    
-    
-    
-    
-    
-    
-//    private Thread thread;
-//    Runnable runnable = new Runnable() {
-//        @UiThreadTest
-//		@Override
-//		public void run() {
-//        	afterSeconds(3000,1);
-//		}
-//	};
-//	
-//	
-//    public MainTest(final Runnable runnable){
-//    	
-//		super(Main.class);
-//
-//        thread = new Thread(new Runnable(){
-//        	
-//            public void run(){
-////                try{            
-//                    runnable.run();
-////                }catch(AssertionError e){
-////                    exc = e;
-////                }
-//            }
-//        });
-//    }
 
-
-//    test should not assume anything about the implementation; It should only test functionality,
-    ///press---3.5sec---press
     @UiThreadTest
     public  void test1() throws InterruptedException {
-    	
-    
-      
-    
-    
     	
     	assertEquals(0, getDisplayedValue());
     	assertTrue(pressTheOnlyButton().isEnabled());
     	assertTrue(pressTheOnlyButton().performClick());
     	assertEquals(1, getDisplayedValue());
     	assertTrue(pressTheOnlyButton().isEnabled());
-    
     	}
     	
-
     @UiThreadTest
     public void test2() {
     	int counter=1;
     	assertEquals(0, getDisplayedValue());
     	assertTrue(pressTheOnlyButton().isEnabled());
     	
-    	
-    	
-		
     	while(counter<=99){    	
     		assertTrue(pressTheOnlyButton().performClick());
     		counter++;
@@ -107,11 +62,7 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
 //    This use of @UiThreadTest shows that, if necessary, you can run an entire
 //    method on the UI thread.
 
-
-
-
     // auxiliary methods for easy access to UI widgets
-
     protected int getDisplayedValue() {
     	final TextView t = (TextView) getActivity().findViewById(R.id.textTimer);
     	return Integer.parseInt(t.getText().toString().trim());
@@ -122,7 +73,39 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     	return (Button) getActivity().findViewById(R.id.theOnlyButton);
     }
 
-//    Dont delete	
+    /**Testing the countdownTimer was unsuccessful due to the implementation of a thread to 
+     * represent the 3 seconds countdown. The UI ThreadTest was our best attempt at creating the test
+     */
+    //    
+//          @UiThreadTest
+//          private Thread thread;
+//          Runnable runnable = new Runnable() {
+//    		@Override
+//    		public void run() {
+//            	afterSeconds(3000,1);
+//    		}
+//    	};
+//	
+//	
+//        public MainTest(final Runnable runnable){
+//        	
+//    		super(Main.class);
+//
+//            thread = new Thread(new Runnable(){
+//            	
+//                public void run(){
+////                    try{            
+//                        runnable.run();
+////                    }catch(AssertionError e){
+////                        exc = e;
+////                    }
+//                }
+//            });
+//        }
+
+/**Another attempt at testing 3 second countdown via thread
+ * 
+ */
 //    protected CountDownTimer afterSeconds( long seconds, final int doClick){
 //        CountDownTimer counDownTimer = new CountDownTimer(seconds, 1000){
 //

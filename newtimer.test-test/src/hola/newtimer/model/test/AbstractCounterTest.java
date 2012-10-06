@@ -9,7 +9,6 @@ import org.junit.Test;
 
 /**
  * Testcase superclass for the counter abstraction.
- * 
  * @author laufer
  * @see http://xunitpatterns.com/Testcase%20Superclass.html
  */
@@ -78,14 +77,14 @@ public abstract class AbstractCounterTest {
 		assertFalse(counter.isEmpty());
 	}
 	
-	////new
+	// Test for model value of Counter object
 	@Test
 	public void testgetValue() {
 		final int v = counter.getValue();
 		assertEquals(v, counter.getValue());
 	}
 	
-	////new
+	// Test for model status method getStatus
 	@Test
 	public void testgetStatus() {
 		final int v = counter.getStatus();
@@ -93,7 +92,7 @@ public abstract class AbstractCounterTest {
 	}
 	
 	
-	////new
+	// Test for model status after altering model state
 	@Test
 	public void testSetStatus() {
 		incrementIfEmpty();

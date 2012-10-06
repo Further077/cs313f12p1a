@@ -9,14 +9,12 @@ import org.junit.Test;
 
 /**
  * Concrete testcase subclass for the default bounded counter implementation.
- * 
  * @author laufer
  * @see http://xunitpatterns.com/Testcase%20Superclass.html
  */
 public class DefaultBoundedCounterTest extends AbstractCounterTest {
 
 	private final static int MIN = 0;
-
 	private final static int MAX = 99;
 
 	@Before
