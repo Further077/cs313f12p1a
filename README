@@ -11,7 +11,7 @@ Description: This application runs on an Android-compatible mobile device. The T
 *While running, the timer subtracts one from the time for every second that elapses.
 *If the timer is running and the button is pressed, the timer stops and the time is reset to zero. (The button acts as a cancel button.)
 *If the timer is running and the time reaches zero by itself (without the button being pressed), then the timer stops and the alarm starts beeping continually and indefinitely.
-*If the alarm is sounding and the button is pressed, the alarm stops sounding; the timer is now stopped and the (remaining) time is zero. (The button acts as a stop button.)
+*If the alarm is sounding and the button is pressed, the alarm stops sounding; the timer is now stopped and the (remaining) time is zero. (The button acts as a stop button).
 
 Tests:
 
