@@ -30,6 +30,7 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
         assertNotNull("activity should be launched successfully", getActivity());
     }
 
+//	test the incrementing function
     @UiThreadTest
     public  void test1() throws InterruptedException {
     	
@@ -39,7 +40,8 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     	assertEquals(1, getDisplayedValue());
     	assertTrue(pressTheOnlyButton().isEnabled());
     	}
-    	
+    
+//    test if value is full, button is disabled.
     @UiThreadTest
     public void test2() {
     	int counter=1;
@@ -55,6 +57,49 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     	assertEquals(99, getDisplayedValue());//99 max
     }
     
+//    test if it is counting down and the stop function to stop the alarm.
+	public void test3() throws Throwable  {
+		getActivity().runOnUiThread(new Runnable() { @Override public void run() {
+			assertEquals(0, getDisplayedValue());
+			assertTrue(pressTheOnlyButton().performClick());
+			assertTrue(pressTheOnlyButton().performClick());
+
+		}});
+		Thread.sleep(4500); // It is counting down
+		getActivity().runOnUiThread(new Runnable() { @Override public void run() {
+			assertEquals(1, getDisplayedValue());
+
+		}});
+
+		Thread.sleep(2000); // wait until it values to 0
+		getActivity().runOnUiThread(new Runnable() { @Override public void run() {
+			assertEquals(0, getDisplayedValue());
+		}});
+		
+		Thread.sleep(1000); // wait until it values to 0
+		getActivity().runOnUiThread(new Runnable() { @Override public void run() {		
+    		assertTrue(pressTheOnlyButton().performClick());
+			assertEquals(0, getDisplayedValue());
+		}});
+	}
+	
+//	test the cancel function when its counting down
+	public void test4() throws Throwable  {
+		getActivity().runOnUiThread(new Runnable() { @Override public void run() {
+			assertEquals(0, getDisplayedValue());
+			int counter = 1;
+			while(counter<=4){    	
+	    		assertTrue(pressTheOnlyButton().performClick());
+	    		counter++;
+	    	}
+		}});
+		Thread.sleep(6500); // <-- cancel it when it is counting down
+		getActivity().runOnUiThread(new Runnable() { @Override public void run() {
+    		assertTrue(pressTheOnlyButton().performClick());
+			assertEquals(0, getDisplayedValue());
+		}});
+	}
+	
     
 //    The @UiThreadTest annotation tells Android to build this method so that
 //    it runs on the UI thread. This allows the method to change the state of the 
