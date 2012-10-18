@@ -1,0 +1,11 @@
+Project 1b Writeup
+
+We both found it would have been more effective to create a model first before coding began.
+We did do some white-boarding during the coding process that looked very similar to a State
+Transition Diagram before we even knew such diagrams existed. I think that speaks to how
+a diagram is easily mapped to the MVA structure, i.e. MVA is an implicit diagram on its own. 
+
+After creating our diagram we realized that almost all of the complexity of the timer 
+is captured in the adapter, rather than the model. The adapter is acting as an adapter and 
+a timer maintaining states. We were stubborn and should have created a timer interface or 
+class to capture new functionality and reduce the amount of extra work handled by the adapter. 
